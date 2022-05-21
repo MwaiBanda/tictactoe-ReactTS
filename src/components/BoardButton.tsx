@@ -8,4 +8,4 @@ function BoardButton(props: {value: String, onClick: () => void}) {
     );
 }
 
-export default BoardButton;
+export default  BoardButton;

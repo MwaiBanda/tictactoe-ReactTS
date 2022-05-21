@@ -3,12 +3,15 @@ import BoardButton from "./BoardButton";
 
 function Board(){
     const [squares, setSquares] = useState<Array<string>>(Array(9).fill(""));
-
+    const [isXNext, setNext] = useState<boolean>(true)
 
     function  handleOnClick(index: number){
-        squares[index] = "X";
-        setSquares([...squares])
-        console.log('SQUARES :', squares);
+        if (squares[index].length === 0) {
+            squares[index] = isXNext ? "X" : "O";
+            setSquares([...squares])
+            setNext(!isXNext)
+            console.log('SQUARES :', squares);
+        }
     }
     function renderSquare(index: number) {
         return (
