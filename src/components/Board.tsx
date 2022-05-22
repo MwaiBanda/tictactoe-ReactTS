@@ -2,24 +2,25 @@ import React, {useState} from "react"
 import BoardButton from "./BoardButton"
 
 function Board(){
-    const [squares, setSquares] = useState<Array<string>>(Array(9).fill(""));
+    const [squares, setSquares] = useState<Array<string>>(Array(9).fill(null));
     const [xIsNext, setNext] = useState<boolean>(true)
 
-    function  handleOnClick(index: number){
-        if (squares[index].length === 0) {
-            const squaresCopy = squares.slice();
-            squaresCopy[index] = xIsNext ? "X" : "O"
-            setSquares(squaresCopy)
-            setNext(!xIsNext)
-            console.log('SQUARES :', squares);
+    function handleOnClick(index: number) {
+        if (calculateWinner(squares) || squares[index]) {
+            return;
         }
+        const squaresCopy = squares.slice();
+        squaresCopy[index] = xIsNext ? "X" : "O"
+        setSquares(squaresCopy)
+        setNext(!xIsNext)
+        console.log('SQUARES :', squares);
     }
-    function renderSquare(index: number) {
+    const renderSquare = (index: number) => {
         return (
             <BoardButton value={squares[index]} onClick={() => handleOnClick(index)}/>
         )
     }
-    function WinnerLabel() {
+    const WinnerLabel = () => {
         const winner = calculateWinner(squares)
         if (winner) {
             return <p>{ 'Winner: ' + winner} </p>
